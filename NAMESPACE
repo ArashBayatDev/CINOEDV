@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+import(R.matlab)
+import(igraph)
+import(ggplot2)
+import(reshape2)
