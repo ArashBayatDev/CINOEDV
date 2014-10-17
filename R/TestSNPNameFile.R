@@ -36,8 +36,8 @@ function(RowNum,SNPNameFileName=NA){
         if ("Name" %in% names(data)){
           SNPNames1 <- data$Name
           if (length(SNPNames1)==RowNum){
-            SNPNames <- sapply(SNPNames1,function(x) return(x[1]))
-            names(SNPNames) <- seq(1,RowNum)
+            SNPNames <- sapply(SNPNames1,function(x) return(x[[1]]))
+            # names(SNPNames) <- seq(1,RowNum)
             cat("    The SNP Name File :", SNPNameFileName,"\n\n")
           }else
           {
