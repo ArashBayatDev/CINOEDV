@@ -74,10 +74,28 @@ function(){
     pts <- Data$pts
     class <- Data$class
   
+  ########################
+  # If there are real SNP names which will be used for constructing graphs and further
+  # analysis, the name of file that saves real SNP names should be provided.
+  
+  cat(" If there are real SNP names which will be used for constructing graphs and further
+       analysis, the name of file that saves real SNP names should be provided. \n\n")
+  cat(" Please input the name of such file with (.mat) format.\n")
+  cat(" The file has only one variable, i.e., Name.\n")
+  cat(" Name: Row -> 1, Column -> SNP Name\n\n")
+  cat(" If not exist such file, please input NA\n\n")
+  cat(" For example, test_Name.mat\n\n")
+  SNPNameFileName <- readline()
+  if (SNPNameFileName=="NA"){
+    SNPNameFileName <- NA  
+  } 
+  SNPNames <- TestSNPNameFile(ncol(pts),SNPNameFileName)
+  SNPNames <- SNPNames$SNPNames
+  
     ########################
-    # The specified maximum order, must be setted as 1,2,3,4 or 5.
+    # The specified maximum order, must be setted as 2,3,4 or 5.
     
-    cat(" Please input the maximum order (1/2/3/4/5), and 3 is the Recommendation Option.\n")
+    cat(" Please input the maximum order (2/3/4/5), and 3 is the Recommendation Option.\n")
     MaxOrder <- readline()
     TestMaxOrder(MaxOrder)
     MaxOrder <- as.numeric(MaxOrder)
@@ -205,7 +223,7 @@ function(){
     cat("    1: The Classic Co-Information Measure\n")
     cat("    2: The Normalized Co-Information Measure\n")
     cat("    3: TingHu's Co-Information Measure\n")
-    cat("    Others: Also The Classic Co-Information Measure\n")
+    cat("    Others: Also the Classic Co-Information Measure\n")
     
     measure <- readline()
     if (measure %in% c("1","2","3")){
@@ -214,88 +232,43 @@ function(){
     {
       measure <- 1
     }
+  
+  ########################
+  # Strategy: Search Strategies
+  #         1 -> The exhaustive strategy
+  #         2 -> The PSO based strategy
+  #         others -> The classic co-information measure
+  
+  cat(" Please select the search strategy (1/2), and 1 is the Recommendation Option.\n")
+  cat("    1: The exhaustive strategy\n")
+  cat("    2: The PSO strategy\n")
+  cat("    Others: Also the exhaustive strategy\n")
+  
+  Strategy <- readline()
+  if (Strategy %in% c("1","2")){
+    Strategy <- as.numeric(Strategy)
+  }else
+  {
+    Strategy <- 1
+  }
+  
+  ########################
+  # parameters of PSO based strategy, such as, Population, Iteration 
+  if (Strategy==2){
+    # Population: numeric. The number of particles.
     
-    ########################
-    # If there are real SNP names which will be used for constructing graphs and further
-    # analysis, the name of file that saves real SNP names should be provided.
+    cat("   Please input the number of particles, and 1000 is the Recommendation option.\n")
+    Population <- readline()
     
-    cat(" If there are real SNP names which will be used for constructing graphs and further
-       analysis, the name of file that saves real SNP names should be provided. \n\n")
-    cat(" Please input the name of such file with (.mat) format.\n")
-    cat(" The file has only one variable, i.e., Name.\n")
-    cat(" Name: Row -> 1, Column -> SNP Name\n\n")
-    cat(" If not exist such file, please input NA\n\n")
-    cat(" For example, test_Name.mat")
-    SNPNameFileName <- readline()
-    if (SNPNameFileName=="NA"){
-      SNPNameFileName <- NA  
-    } 
-    SNPNames <- TestSNPNameFile(ncol(pts),SNPNameFileName)
-    SNPNames <- SNPNames$SNPNames   
-#   }
-#   
-#   # The parameters are setted by the file "Parameters.R".
-#   if (way=="2"){
-#     cat(" Please set parameters using the file 'Parameters.R'.\n\n")
-#     
-#     shell.exec("Parameters.R")
-#     
-#     sure <- "o"
-#     
-#     while(sure!="Y"){
-#       cat(" Are you sure that parameters have been setted and saved (Y/N) ?\n")
-#       sure <- readline()
-#       
-#       if (sure=="N"){
-#         cat("Please continue to set and save parameters. \n\n")
-#       }
-#     }
-#     
-#     source("Parameters.R")
-#     Para <- Parameters()
-#     
-#     FileName <- Para$FileName
-#     MaxOrder <- Para$MaxOrder
-#     RatioThreshold <- Para$RatioThreshold
-#     NumberThreshold <- Para$NumberThreshold
-#     measure <- Para$measure
-#     SNPNameFileName <- Para$SNPNameFileName
-#     
-#     # Check FileName
-#     Data <- InputData(as.character(FileName))
-#     pts <- Data$pts
-#     class <- Data$class
-#     
-#     # Check MaxOrder
-#     TestMaxOrder(as.character(MaxOrder))
-#     MaxOrder <- as.numeric(MaxOrder)
-#     
-#     # Check RatioThreshold
-#     TestRatioThreshold(MaxOrder,as.character(RatioThreshold))
-#     RatioThreshold <- as.numeric(RatioThreshold)
-#     
-#     # Check NumberThreshold
-#     TestNumberThreshold(MaxOrder,as.character(NumberThreshold))
-#     NumberThreshold <- as.numeric(NumberThreshold)
-#     
-#     # Check measure
-#     if (as.character(measure) %in% c("1","2","3")){
-#       measure <- as.numeric(measure)
-#     }else
-#     {
-#       measure <- 1
-#     }
-#     
-#     # Check SNPNameFileName
-#     SNPNames <- TestSNPNameFile(ncol(pts),as.character(SNPNameFileName))
-#     SNPNames <- SNPNames$SNPNames
-#     
-#   }
-#   
-#   # Other inputs that means error inputs.
-#   if ((way!="1") && (way!="2")){
-#     stop(" The input way should be either 1 or 2 !\n")
-#   }
+    # Iteration: numeric. The number of iterations.
+    cat("   Please input the number of iterations, and 100 is the Recommendation option.\n")
+    Iteration <- readline()
+    
+    TestPSOParameters(Population,Iteration)
+    
+    Population <- as.numeric(Population)
+    Iteration <- as.numeric(Iteration)
+  }
   
   #############################
   # Define file name
@@ -315,19 +288,31 @@ function(){
   }
   NumberN <- paste(NumberN,")")
   
-  SaveFileName <- paste(substr(FileName,1,nchar(FileName)-4),MaxOrder,
-                        RatioN,NumberN,sep="_")
+  if (Strategy==1) {
+    SaveFileName <- paste(substr(FileName,1,nchar(FileName)-4),MaxOrder,
+                          RatioN,NumberN,Strategy,sep="_")
+  }
+  if (Strategy==2) {
+    SaveFileName <- paste(substr(FileName,1,nchar(FileName)-4),MaxOrder,
+                          RatioN,NumberN,Strategy,Population,Iteration,sep="_")
+  }
   
   #############################
   # Search Strategies
   #############################
-  # Search SNPs with high main effects and SNP-combinations with high interaction
-  # effects. In current version, only one strategy is provided, that is, 
-  # exhausative search.
-  
   cat("#### Search Results ####\n\n")
   cat(" Please waiting for the search ...\n") 
-  Effect <- ExhaustiveSearch(pts,class,MaxOrder,measure,0)
+  if(Strategy==1){
+    # Search SNPs with high main effects and SNP-combinations with high interaction
+    # effects. In current version, only one strategy is provided, that is, 
+    # exhausative search.
+    Effect <- ExhaustiveSearch(pts,class,MaxOrder,measure,0)
+  }
+  
+  if(Strategy==2){
+    # PSO search strategy
+    Effect <- PSOSearch(pts,class,MaxOrder,Population,Iteration,c1=2,c2=2,TopSNP=10,measure,0)
+  }
   
   # from 1-order to 5-order
   SingleEffect <- Effect$SingleEffect
@@ -420,7 +405,7 @@ function(){
     cat("#### Degree Analysis ####\n")
     Degrees <- DegreeAnalysis(Vertices,Edges,SaveFileName)
     Degrees <- Degrees$Degrees
-    print(Degrees)
+    # print(Degrees)
   }else
   {
     Degrees <- 0
@@ -448,7 +433,7 @@ function(){
   if (nrow(Vertices)>1){
     if (is.na(SNPNameFileName)){
       
-      SNPCombination <- TopEffect[length(TopEffect)]
+      SNPCombination <- CombinationEffect[length(CombinationEffect)]
       SNPCombination <- names(SNPCombination)
       Title <- SNPCombination
       SNPCombination <- strsplit(SNPCombination,split=":")
@@ -458,7 +443,7 @@ function(){
       
     }else
     {
-      SNPCombination <- TopEffect[length(TopEffect)]
+      SNPCombination <- CombinationEffect[length(CombinationEffect)]
       SNPCombination <- names(SNPCombination)
       Title <- SNPCombination
       SNPCombination <- strsplit(SNPCombination,split=":")

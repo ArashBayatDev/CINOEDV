@@ -1,5 +1,6 @@
 BatCINOEDV <- function(FileName,MaxOrder=3,RatioThreshold=c(1,1,1),
-                       NumberThreshold=c(10,10,10),measure=1,SNPNameFileName){
+                       NumberThreshold=c(10,10,10),measure=1,Strategy=2,
+                       Population=1000,Iteration=100,SNPNameFileName){
   
   # Batch mode for using CINOEDV
   #
@@ -24,6 +25,13 @@ BatCINOEDV <- function(FileName,MaxOrder=3,RatioThreshold=c(1,1,1),
   #             3 -> TingHu's Co-Information Measure
   #             others -> The classic co-information measure
   #             for example, measure <- 1
+  #    Strategy: The search strategy
+  #             1 -> The exhaustive search strategy
+  #             2 -> The PSO search strategy
+  #    Population: The number of particles
+  #                 for example, Population <- 1000
+  #    Iteration: The iteration number
+  #               for example, Iteration <- 100
   #    SNPNameFileName: names of SNP-name files.
   #                     the length of SNPNameFileName should be equal to FileName.
   #                     If not exist such SNP-name file, please input NA
@@ -64,6 +72,22 @@ BatCINOEDV <- function(FileName,MaxOrder=3,RatioThreshold=c(1,1,1),
     measure <- 1
   }
   
+  # check strategy
+  if (as.character(Strategy) %in% c("1","2")){
+    Strategy <- as.numeric(Strategy)
+  }else
+  {
+    Strategy <- 1
+  }
+  
+  if (Strategy==2){
+    # check PSO based parameters, that is, Population, Iteration
+    TestPSOParameters(as.character(Population),as.character(Iteration))
+    
+    Population <- as.numeric(Population)
+    Iteration <- as.numeric(Iteration)
+  }
+  
   for (kk in 1:FileNum){
     
     ########################
@@ -97,8 +121,14 @@ BatCINOEDV <- function(FileName,MaxOrder=3,RatioThreshold=c(1,1,1),
     }
     NumberN <- paste(NumberN,")")
     
-    SaveFileName <- paste(substr(FileName[kk],1,nchar(FileName[kk])-4),MaxOrder,
-                          RatioN,NumberN,sep="_")
+    if (Strategy==1) {
+      SaveFileName <- paste(substr(FileName[kk],1,nchar(FileName[kk])-4),MaxOrder,
+                            RatioN,NumberN,Strategy,sep="_")
+    }
+    if (Strategy==2) {
+      SaveFileName <- paste(substr(FileName[kk],1,nchar(FileName[kk])-4),MaxOrder,
+                            RatioN,NumberN,Strategy,Population,Iteration,sep="_")
+    }
     
     #############################
     # Search Strategies
@@ -109,7 +139,18 @@ BatCINOEDV <- function(FileName,MaxOrder=3,RatioThreshold=c(1,1,1),
     
     cat("#### Search Results ####\n\n")
     cat(" Please waiting for the search ...\n") 
-    Effect <- ExhaustiveSearch(pts,class,MaxOrder,measure,0)
+    
+    if(Strategy==1){
+      # Search SNPs with high main effects and SNP-combinations with high interaction
+      # effects. In current version, only one strategy is provided, that is, 
+      # exhausative search.
+      Effect <- ExhaustiveSearch(pts,class,MaxOrder,measure,0)
+    }
+    
+    if(Strategy==2){
+      # PSO search strategy
+      Effect <- PSOSearch(pts,class,MaxOrder,Population,Iteration,c1=2,c2=2,TopSNP=10,measure,0)
+    }
     
     # from 1-order to 5-order
     SingleEffect <- Effect$SingleEffect

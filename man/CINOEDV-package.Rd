@@ -11,7 +11,8 @@ Co-Information based N-Order Epistasis Detector and Visualizer
 }
 
 \description{
-A package for detecting and visualizing high-order epistatic interactions.
+Detecting and visualizing nonlinear interaction effects of single nucleotide polymorphisms or epistatic interactions, especially high-order epistatic interactions, are important topics in bioinformatics because of their significant mathematical and computational challenges. We present CINOEDV (Co-Information based N-Order Epistasis Detector and Visualizer) for detecting, visualizing, and analyzing high-order epistatic interactions by introducing virtual vertices into the construction of a hypergraph. CINOEDV was developed as an alternative to existing software to build a global picture of epistatic interactions and unexpected high-order epistatic interactions, which might provide useful clues for understanding the underlying genetic architecture of complex diseases.
+
 }
 
 \details{
@@ -76,12 +77,15 @@ File4 <- system.file("extdata","test1_Name.mat",package="CINOEDV")
 
 FileName <- c(File1,File2)
 MaxOrder <- 2
-RatioThreshold <- c(1,1)
-NumberThreshold <- c(10,10)
+RThreshold <- c(1,1)
+NThreshold <- c(10,10)
 measure <- 1
-SNPNameFileName <- c(File3,File4)
+SNFName <- c(File3,File4)
+Stra <- 1
+Pop <- 100
+Iter <- 10
 
-BatCINOEDV(FileName, MaxOrder, RatioThreshold, NumberThreshold, measure, SNPNameFileName)
+BatCINOEDV(FileName, MaxOrder, RThreshold, NThreshold, measure, Stra, Pop, Iter, SNFName)
 
 
 ###################

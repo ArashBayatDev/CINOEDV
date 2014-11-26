@@ -20,10 +20,10 @@ function(Vertices,Edges){
   Subgroup <- split(com$names, com$membership)
   SubgroupNum <- length(Subgroup)
   SubgroupSNPs <- vector("list",SubgroupNum)
-  cat("There are ",SubgroupNum," subgroups \n\n")
+  # cat("There are ",SubgroupNum," subgroups \n\n")
   
   for (i in 1:SubgroupNum){
-    cat(i,":\n")
+    # cat(i,":\n")
     AllNodes <- Subgroup[[i]]
     Whether <- sapply(X=AllNodes,CheckVerticeType)
     Whether <- sapply(1:length(AllNodes),function(x,Whether) Whether[[x]]
@@ -31,11 +31,8 @@ function(Vertices,Edges){
     AllNodes <- AllNodes[Whether]
     if (length(AllNodes)==0){
       cat("No real Vertices, i.e., SNPs.")
-    }else
-    {
-      print(AllNodes)
     }
-    cat("\n")
+   # cat("\n")
     SubgroupSNPs[[i]] <- AllNodes
   }
   

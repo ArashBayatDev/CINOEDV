@@ -12,7 +12,7 @@ Batch mode for using CINOEDV function.
 
 \usage{
 BatCINOEDV(FileName, MaxOrder, RatioThreshold, 
-           NumberThreshold, measure, SNPNameFileName)
+           NumberThreshold, measure, Strategy, Population, Iteration, SNPNameFileName)
 }
 
 \arguments{
@@ -30,6 +30,15 @@ character. It controls the numbers of detected SNPs or SNP-combinations with the
 }
   \item{measure}{
 numeric. The used evaluation measure. 1 -> the classic co-information measure; 2 -> the normalized co-information measure; 3 -> TingHu's co-informationn measure.
+}
+  \item{Strategy}{
+The search strategy, 1 -> The exhaustive search strategy,  2 -> The PSO search strategy
+}
+  \item{Population}{
+numeric. The number of particles. For example, Population=1000.
+}
+  \item{Iteration}{
+numeric. The number of iterations. For example, Iteration=100.
 }
   \item{SNPNameFileName}{
 character. The file name with its format (.mat) that saves the names of SNPs. The file has only one variable, i.e., Name. In Name, Row -> 1, Column -> SNP Name, and the length is equal to RowNum. If not exist such file (default), SNPNameFileName <- NA.
@@ -62,5 +71,8 @@ MaxOrder <- 2
 RThreshold <- c(1, 1)
 NThreshold <- c(10, 10)
 measure <- 1
-BatCINOEDV(FileName, MaxOrder, RThreshold, NThreshold, measure, SNFName)
+Stra <- 1
+Pop <- 10
+Iter <- 10
+BatCINOEDV(FileName, MaxOrder, RThreshold, NThreshold, measure, Stra, Pop, Iter, SNFName)
 }

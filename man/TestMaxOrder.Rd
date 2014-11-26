@@ -33,6 +33,6 @@ Junliang Shang \email{shangjunliang110@163.com}
 }
 
 \examples{
-MaxOrder <- "1"
+MaxOrder <- "2"
 TestMaxOrder(MaxOrder)
 }
