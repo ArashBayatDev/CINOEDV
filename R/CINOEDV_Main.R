@@ -502,19 +502,21 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
                    CombinationEffect,HeatMapFactors=HeatMapFactors)
   
   # return
-  cat("#### Write MAT file ####")
+  cat("#### Write MAT file ... ")
   #writeMat(paste(SaveFileName,".mat",sep=""),parameters=parameters,data=data,
   #         results=results,graphs=graphs)
-  cat("#### Finish Writeing MAT file ####")
+  cat("Done ####\n")
          
-  cat("#### Write CSV file ####")
-  write.csv(results, file=paste(SaveFileName,".result.csv",sep=""))
-  write.csv(graphs, file=paste(SaveFileName,".graph.csv",sep=""))
-  cat("#### Finish Writeing CSV file ####")       
-         
+  cat("#### Write CSV file ... ")
+  #write.csv(results, file=paste(SaveFileName,".result.csv",sep=""))
+  #write.csv(graphs, file=paste(SaveFileName,".graph.csv",sep=""))
+  cat("Done #### \n")       
+  
+  cat("#### Write Rdata file ... ")
   save(parameters=parameters,data=data,results=results,graphs=graphs,
        file=paste(SaveFileName,".RData",sep=""))
-  
+  cat("Done #### \n")
+         
   cat("############################\n")
   cat("#####      Finish      #####\n")
   cat("############################\n")
