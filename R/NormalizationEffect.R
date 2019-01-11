@@ -67,7 +67,7 @@ function(MaxOrder,SingleEffect,TwoEffect,ThreeEffect,
     plot(log(x),z,pch=x.pch,col=x.col,xlab=NA,ylab="Normalized Effect")
     lines(log(1:rowSingle),rep(NmeanSingle,rowSingle),col="green")
     lines(log((rowSingle+1):(rowSingle+rowTwo)),rep(NmeanTwo,rowTwo),col="red")
-    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="pdf")
+    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="jpeg")
   }
   
   if(MaxOrder==3){
@@ -116,7 +116,7 @@ function(MaxOrder,SingleEffect,TwoEffect,ThreeEffect,
     lines(log((rowSingle+1):(rowSingle+rowTwo)),rep(NmeanTwo,rowTwo),col="blue")
     lines(log((rowSingle+rowTwo+1):(rowSingle+rowTwo+rowThree)),
           rep(NmeanThree,rowThree),col="red") 
-    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="pdf")
+    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="jpeg")
   }
   
   if(MaxOrder==4){
@@ -175,7 +175,7 @@ function(MaxOrder,SingleEffect,TwoEffect,ThreeEffect,
           rep(NmeanThree,rowThree),col="cyan")   
     lines(log((rowSingle+rowTwo+rowThree+1):(rowSingle+rowTwo+rowThree+rowFour)),
           rep(NmeanFour,rowFour),col="red") 
-    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="pdf")
+    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="jpeg")
   }
   
   if(MaxOrder==5){
@@ -244,7 +244,7 @@ function(MaxOrder,SingleEffect,TwoEffect,ThreeEffect,
           rep(NmeanFour,rowFour),col="black") 
     lines(log((rowSingle+rowTwo+rowThree+rowFour+1):(rowSingle+rowTwo+rowThree+rowFour+rowFive)),
           rep(NmeanFive,rowFive),col="red") 
-    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="pdf")
+    savePlot(filename=paste(SaveFileName,"_N",sep=""),type="jpeg")
   }
   
   list(SingleEffect=SingleEffect,TwoEffect=TwoEffect,ThreeEffect=ThreeEffect,
