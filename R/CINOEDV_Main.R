@@ -1,5 +1,7 @@
-CINOEDV_Main <-
-function(fn_gt, fn_varName, mo, rt, nt, analysisType, searchType){
+CINOEDV_Main <- 
+function(fn_gt="test.mat", fn_varName="test_Name.mat", 
+         mo="2", rt=c("1","1"), nt=c("10","10"), 
+        analysisType="1", searchType="1"){
   # Main function of R package CINOEDV (Co-Information based N-Order
   # Epistasis Detector and Visualizer).
   #
