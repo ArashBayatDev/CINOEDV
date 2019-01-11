@@ -418,14 +418,14 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   #############################
   # Split subgraphs using walktrap.community algorithm
   
-  if (nrow(Vertices)>1){
+  #if (nrow(Vertices)>1){
     cat("#### Split subgraphs ####\n")
-    SubgraphSNPs <- SubgraphSplit(Vertices,Edges)
-    SubgraphSNPs <- SubgraphSNPs$SubgroupSNPs
-  }else
-  {
+    #SubgraphSNPs <- SubgraphSplit(Vertices,Edges)
+    #SubgraphSNPs <- SubgraphSNPs$SubgroupSNPs
+  #}else
+  #{
     SubgraphSNPs <- Vertices
-  } 
+  #} 
   
   #############################
   # heatmap Factor
