@@ -115,6 +115,6 @@ function(pts,class,factor,SaveFileName="",Title=""){
   print(p)
   
   # save and return
-  savePlot(filename=paste(SaveFileName,"_HF",sep=""),type="jpeg")
+  savePlot(filename=paste(SaveFileName,"_HF",sep=""),type="png")
   list(HeatMapFactors=results)
 }
