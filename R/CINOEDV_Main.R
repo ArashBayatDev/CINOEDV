@@ -489,8 +489,7 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
                      SNPNameFileName=SNPNameFileName,measure=measure)
   
   # save the data
-  #data <- list(pts=pts,class=class,SNPNames=SNPNames)
-  data <- list(class=class,SNPNames=SNPNames)
+  data <- list(pts=pts,class=class,SNPNames=SNPNames)
          
   # save the results
   results <- list(SingleEffect=SingleEffect,TwoEffect=TwoEffect,
@@ -504,9 +503,15 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   
   # return
   cat("#### Write MAT file ####")
-  writeMat(paste(SaveFileName,".mat",sep=""),parameters=parameters,data=data,
-           results=results,graphs=graphs)
+  #writeMat(paste(SaveFileName,".mat",sep=""),parameters=parameters,data=data,
+  #         results=results,graphs=graphs)
   cat("#### Finish Writeing MAT file ####")
+         
+  cat("#### Write CSV file ####")
+  write.csv(results, file=paste(SaveFileName,".result.csv",sep=""))
+  write.csv(graphs, file=paste(SaveFileName,".graph.csv",sep=""))
+  cat("#### Finish Writeing CSV file ####")       
+         
   save(parameters=parameters,data=data,results=results,graphs=graphs,
        file=paste(SaveFileName,".RData",sep=""))
   
