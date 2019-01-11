@@ -503,9 +503,10 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
                    CombinationEffect,HeatMapFactors=HeatMapFactors)
   
   # return
+  cat("#### Write MAT file ####")
   writeMat(paste(SaveFileName,".mat",sep=""),parameters=parameters,data=data,
            results=results,graphs=graphs)
-  
+  cat("#### Finish Writeing MAT file ####")
   save(parameters=parameters,data=data,results=results,graphs=graphs,
        file=paste(SaveFileName,".RData",sep=""))
   
