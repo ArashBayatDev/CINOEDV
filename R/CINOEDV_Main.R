@@ -435,28 +435,32 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   cat("#### Heat-map the top factor ####\n")
   if (nrow(Vertices)>1){
     if (is.na(SNPNameFileName)){
+      cat(">>> 111")
       
       SNPCombination <- CombinationEffect[length(CombinationEffect)]
       SNPCombination <- names(SNPCombination)
       Title <- SNPCombination
       SNPCombination <- strsplit(SNPCombination,split=":")
       factor <- as.numeric(c(SNPCombination, recursive=T))
-      
+      cat(">>> 222")
       HeatMapFactors <- HeatMapFactor(pts,class,factor,SaveFileName,Title)
-      
+      cat(">>> 333")
     }else
     {
+      cat(">>> 444")
       SNPCombination <- CombinationEffect[length(CombinationEffect)]
       SNPCombination <- names(SNPCombination)
       Title <- SNPCombination
       SNPCombination <- strsplit(SNPCombination,split=":")
       SNPCombination <- c(SNPCombination, recursive=T)
-      
+      cat(">>> 555")
       factorNum <- length(SNPCombination)
       factor <- rep(0,factorNum)
       
       SNPNamesNum <- length(SNPNames)
-      
+      cat(">>> 666")
+      factorNum
+      SNPNameNum
       for (i in 1:factorNum){
         for (j in 1:SNPNamesNum){
           if (SNPCombination[i]==SNPNames[j]){
@@ -465,13 +469,15 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
           }
         }
       }
-      
+      cat(">>> 777")
       HeatMapFactors<- HeatMapFactor(pts,class,factor,SaveFileName,Title)
+      cat(">>> 888")
     }
-    
+    cat(">>> 999")
     HeatMapFactors <- HeatMapFactors$HeatMapFactors
   }else
   {
+    cat(">>> xxx")       
     HeatMapFactors <- 0
   }
 
@@ -479,6 +485,7 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   # Return Results
   #############################
   # save the parameters
+  cat("#### Save Paremeters and Results ####\n")       
   parameters <- list(FileName=FileName,MaxOrder=MaxOrder,RatioThreshold=
                        RatioThreshold,NumberThreshold=NumberThreshold,
                      SNPNameFileName=SNPNameFileName,measure=measure)
