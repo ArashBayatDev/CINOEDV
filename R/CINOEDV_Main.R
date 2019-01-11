@@ -1,5 +1,5 @@
 CINOEDV_Main <-
-function(){
+function(fn_gt, fn_varName, mo, rt, nt, analysisType, searchType){
   # Main function of R package CINOEDV (Co-Information based N-Order
   # Epistasis Detector and Visualizer).
   #
@@ -67,7 +67,7 @@ function(){
     cat("    1 -> case\n")
     cat("    2 -> control\n\n")
     cat(" for example, test.mat\n")
-    FileName <- readline()
+    FileName <- fn_gt #readline()
     
     # Input and Check SNP data
     Data <- InputData(FileName)
@@ -85,7 +85,7 @@ function(){
   cat(" Name: Row -> 1, Column -> SNP Name\n\n")
   cat(" If not exist such file, please input NA\n\n")
   cat(" For example, test_Name.mat\n\n")
-  SNPNameFileName <- readline()
+  SNPNameFileName <- fn_varName #readline()
   if (SNPNameFileName=="NA"){
     SNPNameFileName <- NA  
   } 
@@ -96,7 +96,7 @@ function(){
     # The specified maximum order, must be setted as 2,3,4 or 5.
     
     cat(" Please input the maximum order (2/3/4/5), and 3 is the Recommendation Option.\n")
-    MaxOrder <- readline()
+    MaxOrder <- mo #readline()
     TestMaxOrder(MaxOrder)
     MaxOrder <- as.numeric(MaxOrder)
     
@@ -151,7 +151,7 @@ function(){
     # input ratio thresholds
     for (i in 1:MaxOrder){
       cat(" Please input the ",i," ratio threshold.\n")
-      RatioThreshold[i] <- readline()
+      RatioThreshold[i] <- rt[i] #readline()
     }
     TestRatioThreshold(MaxOrder,RatioThreshold)
     RatioThreshold <- as.numeric(RatioThreshold)
@@ -207,7 +207,7 @@ function(){
     # input number thresholds
     for (i in 1:MaxOrder){
       cat(" Please input the ",i," number threshold.\n")
-      NumberThreshold[i] <- readline()
+      NumberThreshold[i] <- nt[i] #readline()
     }
     TestNumberThreshold(MaxOrder,NumberThreshold)
     NumberThreshold <- as.numeric(NumberThreshold)
@@ -225,7 +225,7 @@ function(){
     cat("    3: TingHu's Co-Information Measure\n")
     cat("    Others: Also the Classic Co-Information Measure\n")
     
-    measure <- readline()
+    measure <- analysisType #readline()
     if (measure %in% c("1","2","3")){
       measure <- as.numeric(measure)
     }else
@@ -244,7 +244,7 @@ function(){
   cat("    2: The PSO strategy\n")
   cat("    Others: Also the exhaustive strategy\n")
   
-  Strategy <- readline()
+  Strategy <- searchType #readline()
   if (Strategy %in% c("1","2")){
     Strategy <- as.numeric(Strategy)
   }else
