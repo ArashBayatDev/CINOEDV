@@ -419,7 +419,7 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   # Split subgraphs using walktrap.community algorithm
   
   #if (nrow(Vertices)>1){
-    cat("#### Split subgraphs ####\n")
+    cat("#### *Split subgraphs ####\n")
     #SubgraphSNPs <- SubgraphSplit(Vertices,Edges)
     #SubgraphSNPs <- SubgraphSNPs$SubgroupSNPs
   #}else
@@ -432,6 +432,7 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   #############################
   # heatmap the top factor
   
+  cat("#### heatmap the top factor ####\n")
   if (nrow(Vertices)>1){
     if (is.na(SNPNameFileName)){
       
