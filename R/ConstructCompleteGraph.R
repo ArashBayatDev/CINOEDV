@@ -87,5 +87,5 @@ function(Vertices,Edges,BaseSize=6,SaveFileName=""){
          vertex.color=Colour,vertex.size=Size,vertex.frame.color=Colour)    
   }
   
-  savePlot(filename=paste(SaveFileName,"_CG",sep=""),type="pdf")
+  savePlot(filename=paste(SaveFileName,"_CG",sep=""),type="jpeg")
 }
