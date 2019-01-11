@@ -33,7 +33,7 @@ function(Vertices,Edges,SaveFileName=""){
   hist(gdfDegree,col="gray",border="yellow",xlab="Degree",main=NA)
   title(main=list("Histogram of real vertice degree",font=3))
   
-  savePlot(filename=paste(SaveFileName,"_DA",sep=""),type="jpeg")
+  savePlot(filename=paste(SaveFileName,"_DA",sep=""),type="png")
   
   list(Degrees=Degrees)
 }
