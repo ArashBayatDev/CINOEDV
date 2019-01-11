@@ -114,7 +114,7 @@ function(Vertices,Top=20,SaveFileName=""){
   title(main=list(paste("Top ",Top," Effects",sep=""),font=3))
   
   # save and return
-  # savePlot(filename=paste(SaveFileName,"_TE",sep=""),type="tiff")
+  savePlot(filename=paste(SaveFileName,"_TE",sep=""),type="pdf")
   
   list(TopEffect=Values,CombinationEffect=Values2)  
 }
