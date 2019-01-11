@@ -18,7 +18,7 @@ function(fn_gt="test.mat", fn_varName="test_Name.mat",
   cat("#### Welcome ####\n\n")
   cat(" Hello, Welcome to CINOEDV !\n")
   cat(" CINOEDV: Co-Information based N-Order Epistasis Detector and Visualizer.\n\n")
-  rm(list=ls())
+  #rm(list=ls())
   
   #############################
   # Install Packages
